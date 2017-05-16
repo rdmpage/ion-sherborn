@@ -16,6 +16,7 @@ foreach ($files1 as $directory)
 		{
 			if (preg_match('/^(?<id>\d+)\.html$/', $filename, $m))
 			{	
+				//echo $filename . "\n";
 				$html = file_get_contents(dirname(__FILE__) . '/' . $basedir . '/' . $directory . '/' . $filename);
 
 				$dom = str_get_html($html);
@@ -26,6 +27,7 @@ foreach ($files1 as $directory)
 					if (preg_match('/(?<micro>.*)\s+\[Index Animalium Entry\]/', $li->plaintext, $m)) 
 					{ 
 						$obj = new stdclass;
+						$obj->ion = str_replace('.html', '', $filename);
 						$obj->citation = $m['micro'];
 		
 						foreach ($li->find('a') as $a)
